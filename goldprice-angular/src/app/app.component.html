@@ -1,0 +1,137 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+  </head>
+  <body>
+    <header>
+      <div class="navbar navbar-dark bg-success box-shadow">
+        <div class="container d-flex justify-content-between">
+          <a class="navbar-brand d-flex align-items-center">
+            <strong>Vakıfbank Altın Fiyatları UI</strong>
+          </a>
+        </div>
+      </div>
+    </header>
+    <main class="px-3">
+      <section class="py-5 jumbotron text-center">
+        <div class="container">
+          <!-- Sayfaya açıklama eklenir -->
+          <h1 class="jumbotron-heading">Altın Fiyatları</h1>
+          <p class="lead text-muted">
+            Uygulama programlama arayüzü(API), bir yazılımın başka bir yazılımda
+            tanımlanmış işlevlerini kullanabilmesi için oluşturulmuş bir tanım
+            bütünüdür. API, bir sunucunun üzerindeki uygulamaya farklı
+            platformlardan ulaşılmasını ve response dönmesine olanak sağlar. Web
+            API’lerinin tamamı REST(REpresentational State Transfer) mimarisi
+            üzerinde dizayn edilir. Bundan dolayı platform bağımsız çalışır. Bu
+            mimari GET, POST, PUT, DELETE metotlarının hepsini desteklemektedir.
+            Web API çıktıları talebe göre JSON, XML gibi çeşitli çıktıları
+            olabilir. Bu sitede Vakıfbank API Store'daki Altın Fiyatları API'ına
+            erişilerek altın fiyatları bilgileri gösterilmektedir. Tarih bilgisi
+            girilerek istenilen gün ve saatin altın fiyatları hakkında bilgi
+            edinilebilir.
+          </p>
+          <div>
+            <div class="alert alert-success" role="alert"><br /></div>
+            <br />
+            <label
+              for="colFormLabel"
+              class="col-sm-1 col-form-label col-form-label-lg"
+              >Tarih giriniz:</label
+            >
+            <!-- DateTimePicker oluşturulur ve addEvent fonksiyonu ile kullanıcının girdiği tarih alınır -->
+            <mat-form-field appearance="fill">
+              <input
+                matInput
+                [matDatepicker]="picker"
+                [min]="minDate"
+                [max]="maxDate"
+                (dateInput)="addEvent('input', $event)"
+                (dateChange)="addEvent('change', $event)"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <!-- Buton oluşturulur ve getgoldPrice fonksiyonu ile butona tıklandığında yapılacak işlemler gerçekleştirilir -->
+          <div class="row">
+            <div class="col-sm">
+              <a
+                role="button"
+                class="btn btn-secondary"
+                (click)="getGoldPrices()"
+              >
+                Göster
+              </a>
+            </div>
+          </div>
+
+          <br />
+          <!-- Tablo oluşturulur ve alınan response değerleri tabloda görüntülenir -->
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Altın Fiyatının Tarihi</th>
+                <th>Altın Ürün Adı</th>
+                <th>ISIN</th>
+                <th>Müşteri Altın Alış Fiyatı</th>
+                <th>Müşteri Altın Satış Fiyatı</th>
+                <th>Döviz Kodu</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let goldPrice of goldPrices">
+                <td>
+                  <span>{{ goldPrice.rateDate }}</span>
+                </td>
+                <td>
+                  <span>{{ goldPrice.productName }}</span>
+                </td>
+                <td>
+                  <span>{{ goldPrice.isin }}</span>
+                </td>
+                <td>
+                  <span>{{ goldPrice.purchaseRate }}</span>
+                </td>
+                <td>
+                  <span>{{ goldPrice.saleRate }}</span>
+                </td>
+                <td>
+                  <span>{{ goldPrice.currencyCode }}</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <!-- Bootstrap core JavaScript
+  ================================================== -->
+    <!-- Sayfaların daha hızlı yüklenmesi için belgenin sonuna yerleştirilir -->
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      window.jQuery ||
+        document.write(
+          '<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>'
+        );
+    </script>
+    <script src="../../assets/js/vendor/popper.min.js"></script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/vendor/holder.min.js"></script>
+  </body>
+</html>
+<router-outlet></router-outlet>
